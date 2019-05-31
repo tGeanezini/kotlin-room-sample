@@ -1,25 +1,53 @@
 package com.tgeanezini.mobile.roomwordsample.activities
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tgeanezini.mobile.roomwordsample.R
-
-import kotlinx.android.synthetic.main.activity_main.*
+import com.tgeanezini.mobile.roomwordsample.WordListAdapter
+import com.tgeanezini.mobile.roomwordsample.WordViewModel
+import com.tgeanezini.mobile.roomwordsample.models.Word
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var wordViewModel: WordViewModel
+
+    companion object {
+        const val newWordActivityRequestCode = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = WordListAdapter(this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            val intent = Intent(this@MainActivity, NewWordActivity::class.java)
+            startActivityForResult(intent, newWordActivityRequestCode)
         }
+
+        wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+
+        wordViewModel.allWords.observe(this, Observer { words ->
+            words?.let { adapter.setWords(it) }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,6 +63,19 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                val word = Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY))
+                wordViewModel.insert(word)
+            }
+        } else {
+            Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG).show()
         }
     }
 }
