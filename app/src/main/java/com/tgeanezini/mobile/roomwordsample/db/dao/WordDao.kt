@@ -1,10 +1,10 @@
-package com.tgeanezini.mobile.roomwordsample.database
+package com.tgeanezini.mobile.roomwordsample.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.tgeanezini.mobile.roomwordsample.models.Word
+import com.tgeanezini.mobile.roomwordsample.db.entity.Word
 
 @Dao
 interface WordDao {

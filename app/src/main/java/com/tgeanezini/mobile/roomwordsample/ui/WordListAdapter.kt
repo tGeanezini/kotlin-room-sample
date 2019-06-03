@@ -1,4 +1,4 @@
-package com.tgeanezini.mobile.roomwordsample
+package com.tgeanezini.mobile.roomwordsample.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tgeanezini.mobile.roomwordsample.models.Word
+import com.tgeanezini.mobile.roomwordsample.R
+import com.tgeanezini.mobile.roomwordsample.db.entity.Word
 
 class WordListAdapter internal constructor(context: Context) : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)

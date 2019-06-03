@@ -1,4 +1,4 @@
-package com.tgeanezini.mobile.roomwordsample.models
+package com.tgeanezini.mobile.roomwordsample.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

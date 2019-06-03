@@ -1,11 +1,12 @@
-package com.tgeanezini.mobile.roomwordsample.database
+package com.tgeanezini.mobile.roomwordsample.db.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.tgeanezini.mobile.roomwordsample.models.Word
+import com.tgeanezini.mobile.roomwordsample.db.dao.WordDao
+import com.tgeanezini.mobile.roomwordsample.db.entity.Word
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +29,11 @@ abstract class WordRoomDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     WordRoomDatabase::class.java,
-                    "Word_database").addCallback(WordDatabaseCallback(scope)).build()
+                    "Word_database").addCallback(
+                    WordDatabaseCallback(
+                        scope
+                    )
+                ).build()
                 INSTANCE = instance
                 return instance
             }
@@ -39,7 +44,9 @@ abstract class WordRoomDatabase : RoomDatabase() {
                 super.onOpen(db)
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.wordDao())
+                        populateDatabase(
+                            database.wordDao()
+                        )
                     }
                 }
             }

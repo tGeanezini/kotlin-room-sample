@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tgeanezini.mobile.roomwordsample.R
-import com.tgeanezini.mobile.roomwordsample.WordListAdapter
-import com.tgeanezini.mobile.roomwordsample.WordViewModel
-import com.tgeanezini.mobile.roomwordsample.models.Word
+import com.tgeanezini.mobile.roomwordsample.ui.WordListAdapter
+import com.tgeanezini.mobile.roomwordsample.viewmodel.WordViewModel
+import com.tgeanezini.mobile.roomwordsample.db.entity.Word
 
 class MainActivity : AppCompatActivity() {
 
@@ -71,7 +71,8 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
-                val word = Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY))
+                val word =
+                    Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY))
                 wordViewModel.insert(word)
             }
         } else {

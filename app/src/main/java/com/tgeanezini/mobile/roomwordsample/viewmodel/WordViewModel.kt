@@ -1,12 +1,12 @@
-package com.tgeanezini.mobile.roomwordsample
+package com.tgeanezini.mobile.roomwordsample.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.tgeanezini.mobile.roomwordsample.database.WordRepository
-import com.tgeanezini.mobile.roomwordsample.database.WordRoomDatabase
-import com.tgeanezini.mobile.roomwordsample.models.Word
+import com.tgeanezini.mobile.roomwordsample.db.repository.WordRepository
+import com.tgeanezini.mobile.roomwordsample.db.database.WordRoomDatabase
+import com.tgeanezini.mobile.roomwordsample.db.entity.Word
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
