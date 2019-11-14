@@ -2,33 +2,35 @@ package com.tgeanezini.mobile.roomwordsample.activities
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.tgeanezini.mobile.roomwordsample.R
 import com.tgeanezini.mobile.roomwordsample.util.EXTRA_REPLY
+import kotlinx.android.synthetic.main.activity_contact.*
 
-class NewWordActivity : AppCompatActivity() {
-
-    private lateinit var editWordView: EditText
+class ContactActivity : AppCompatActivity() {
+    private lateinit var firstNameEdit: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_word)
-        editWordView = findViewById(R.id.edit_word)
+        setContentView(R.layout.activity_contact)
 
-        val button = findViewById<Button>(R.id.button_save)
-        button.setOnClickListener {
+        button_save.setOnClickListener {
             val replyIntent = Intent()
-            if(TextUtils.isEmpty(editWordView.text)) {
+            if (TextUtils.isEmpty(firstNameEdit.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val word = editWordView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, word)
+                val firstName = firstNameEdit.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY, firstName)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
+            finish()
+        }
+
+        button_cancel.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED, Intent())
             finish()
         }
     }

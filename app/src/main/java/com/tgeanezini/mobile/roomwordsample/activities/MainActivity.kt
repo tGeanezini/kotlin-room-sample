@@ -17,6 +17,7 @@ import com.tgeanezini.mobile.roomwordsample.R
 import com.tgeanezini.mobile.roomwordsample.ui.WordListAdapter
 import com.tgeanezini.mobile.roomwordsample.viewmodel.WordViewModel
 import com.tgeanezini.mobile.roomwordsample.db.entity.Word
+import com.tgeanezini.mobile.roomwordsample.util.EXTRA_REPLY
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
                 val word =
-                    Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY))
+                    Word(it.getStringExtra(EXTRA_REPLY))
                 wordViewModel.insert(word)
             }
         } else {

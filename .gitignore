@@ -86,6 +86,12 @@ obj/
 .idea/uiDesigner.xml
 .idea/assetWizardSettings.xml
 
+# Sonarlint plugin
+.idea/**/sonarlint/
+
+# SonarQube Plugin
+.idea/**/sonarIssues.xml
+
 # OS-specific files
 .DS_Store
 .DS_Store?
